@@ -1,0 +1,90 @@
+<div class="course-list-container">
+  <div class="header">
+    <h1>Explore Courses</h1>
+    <p>Discover and enroll in amazing courses</p>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="filters-section">
+    <div class="form-group filter-field">
+      <label for="searchInput">Search courses</label>
+      <input id="searchInput" class="form-control" [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()" placeholder="Search...">
+    </div>
+
+    <div class="form-group filter-field">
+      <label for="categorySelect">Category</label>
+      <select id="categorySelect" class="form-control" [(ngModel)]="selectedCategory" (ngModelChange)="onCategoryChange()">
+        <option value="">All Categories</option>
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+    </div>
+
+    <div class="form-group filter-field">
+      <label for="difficultySelect">Difficulty</label>
+      <select id="difficultySelect" class="form-control" [(ngModel)]="selectedDifficulty" (ngModelChange)="onDifficultyChange()">
+        <option value="">All Levels</option>
+        <option *ngFor="let diff of difficulties" [value]="diff">{{ diff | titlecase }}</option>
+      </select>
+    </div>
+
+    <button class="btn btn-outlined" (click)="resetFilters()">Reset Filters</button>
+  </div>
+
+  <!-- Courses Grid -->
+  <div class="courses-grid">
+    <div *ngFor="let course of filteredCourses" class="card course-card"
+         [appHighlightFeatured]="course.isFeatured"
+         [appHighlightNew]="course.isNew">
+      <div class="card-header">
+        <div class="course-image" [style.background-image]="'url(' + (course.image || 'assets/default-course.png') + ')'"></div>
+      </div>
+
+      <div class="card-content">
+        <h3 class="course-title">{{ course.title }}</h3>
+        <p class="course-description">{{ course.description }}</p>
+
+        <div class="course-meta">
+          <span class="category-badge">{{ course.category }}</span>
+          <span class="difficulty-badge" [ngClass]="'difficulty-' + course.difficulty">
+            {{ course.difficulty | titlecase }}
+          </span>
+        </div>
+
+        <div class="instructor-info">
+          <strong>Instructor:</strong> {{ course.instructor.name }}
+        </div>
+
+        <div class="course-stats">
+          <div class="stat">
+            <span class="label">Rating:</span>
+            <span class="value">{{ course.rating }}/5</span>
+          </div>
+          <div class="stat">
+            <span class="label">Enrolled:</span>
+            <span class="value">{{ course.totalEnrolled }}</span>
+          </div>
+          <div class="stat">
+            <span class="label">Duration:</span>
+            <span class="value">{{ course.duration }}h</span>
+          </div>
+        </div>
+
+        <div class="course-price">
+          <span class="price">${{ course.price }}</span>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-primary" [routerLink]="['/courses', course.id]">
+          View Details
+        </button>
+        <button class="btn btn-text" (click)="enrollCourse(course.id)">Enroll Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Courses Message -->
+  <div *ngIf="filteredCourses.length === 0" class="no-courses">
+    <p>No courses found matching your criteria.</p>
+  </div>
+</div>

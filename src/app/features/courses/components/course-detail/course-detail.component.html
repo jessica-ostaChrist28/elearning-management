@@ -1,0 +1,68 @@
+<div class="course-detail-container" *ngIf="!loading">
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="course" class="course-content">
+    <div class="course-header">
+      <img [src]="course.image || 'assets/default-course.png'" [alt]="course.title" class="course-image">
+
+      <div class="course-info">
+        <h1>{{ course.title }}</h1>
+        <p class="course-category">{{ course.category }} • {{ course.difficulty | titlecase }}</p>
+        <div class="course-meta">
+          <span class="rating">⭐ {{ course.rating }}/5</span>
+          <span class="enrolled">👥 {{ course.totalEnrolled }} students</span>
+          <span class="duration">⏱️ {{ course.duration }} hours</span>
+        </div>
+        <div class="instructor">
+          <strong>Instructor:</strong> {{ course.instructor.name }}
+        </div>
+        <div class="price">
+          <span class="amount">${{ course.price }}</span>
+          <button class="btn btn-primary" (click)="enrollCourse()">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs-container">
+      <div class="tabs-header">
+        <button class="tab-button" [class.active]="activeTab === 'about'" (click)="setActiveTab('about')">About</button>
+        <button class="tab-button" [class.active]="activeTab === 'syllabus'" (click)="setActiveTab('syllabus')">Syllabus</button>
+        <button class="tab-button" [class.active]="activeTab === 'instructor'" (click)="setActiveTab('instructor')">Instructor</button>
+      </div>
+
+      <!-- About Tab -->
+      <div class="tab-content" *ngIf="activeTab === 'about'">
+        <h2>Course Description</h2>
+        <p>{{ course.description }}</p>
+      </div>
+
+      <!-- Syllabus Tab -->
+      <div class="tab-content" *ngIf="activeTab === 'syllabus'">
+        <h2>Course Lessons ({{ course.syllabus.length }})</h2>
+        <div class="lesson-list">
+          <div class="lesson-item" *ngFor="let lesson of course.syllabus; let i = index">
+            <div class="lesson-title">{{ i + 1 }}. {{ lesson.title }}</div>
+            <div class="lesson-duration">Duration: {{ lesson.duration }} minutes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instructor Tab -->
+      <div class="tab-content" *ngIf="activeTab === 'instructor'">
+        <div class="instructor-card">
+          <h2>About the Instructor</h2>
+          <div class="instructor-details">
+            <div class="instructor-name">{{ course.instructor.name }}</div>
+            <div class="instructor-email">{{ course.instructor.email }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading-spinner">
+  Loading course details...
+</div>

@@ -1,0 +1,71 @@
+<div class="register-container">
+  <div class="card register-card">
+    <div class="card-header">
+      <h2 class="card-title">Create Account</h2>
+      <p class="card-subtitle">Join our learning community</p>
+    </div>
+
+    <div class="card-content">
+      <form (ngSubmit)="onRegister()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input id="firstName" class="form-control" [(ngModel)]="credentials.firstName" name="firstName" required>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input id="lastName" class="form-control" [(ngModel)]="credentials.lastName" name="lastName" required>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="username">Username</label>
+          <input id="username" class="form-control" [(ngModel)]="credentials.username" name="username" required>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="email">Email</label>
+          <input id="email" class="form-control" [(ngModel)]="credentials.email" name="email" type="email" required>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="role">Role</label>
+          <select id="role" class="form-control" [(ngModel)]="credentials.role" name="role" required>
+            <option *ngFor="let role of roles" [value]="role">
+              {{ role | titlecase }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="password">Password</label>
+          <div class="password-input-wrapper">
+            <input id="password" class="form-control" [(ngModel)]="credentials.password" name="password"
+                   [type]="showPassword ? 'text' : 'password'" required>
+            <button class="toggle-password-btn" (click)="togglePasswordVisibility()" type="button">
+              {{ showPassword ? 'Hide' : 'Show' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="confirmPassword">Confirm Password</label>
+          <input id="confirmPassword" class="form-control" [(ngModel)]="confirmPassword" name="confirmPassword"
+                 [type]="showPassword ? 'text' : 'password'" required>
+        </div>
+
+        <button class="btn btn-primary full-width register-btn"
+                [disabled]="loading" type="submit">
+          <span *ngIf="loading">Loading...</span>
+          <span *ngIf="!loading">Create Account</span>
+        </button>
+      </form>
+
+      <div class="login-link">
+        Already have an account?
+        <a (click)="navigateToLogin()">Sign in</a>
+      </div>
+    </div>
+  </div>
+</div>
