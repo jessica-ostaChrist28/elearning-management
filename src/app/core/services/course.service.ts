@@ -17,11 +17,277 @@ export class CourseService {
   }
 
   /**
-   * Load all courses from backend
+   * Mock courses for demo purposes
+   */
+  private mockCourses: Course[] = [
+    {
+      id: '1',
+      title: 'Angular Fundamentals',
+      description: 'Learn the basics of Angular framework',
+      category: 'Web Development',
+      difficulty: 'Beginner',
+      instructor: 'John Doe',
+      duration: '4 weeks',
+      students: 1250,
+      rating: 4.8,
+      isFeatured: true,
+      isNew: false,
+      imageUrl: 'https://via.placeholder.com/300x200?text=Angular+Fundamentals',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '2',
+      title: 'React Basics',
+      description: 'Master React for building interactive UIs',
+      category: 'Web Development',
+      difficulty: 'Beginner',
+      instructor: 'Jane Smith',
+      duration: '5 weeks',
+      students: 2100,
+      rating: 4.9,
+      isFeatured: true,
+      isNew: true,
+      imageUrl: 'https://via.placeholder.com/300x200?text=React+Basics',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '3',
+      title: 'Vue.js Advanced',
+      description: 'Advanced concepts in Vue.js development',
+      category: 'Web Development',
+      difficulty: 'Advanced',
+      instructor: 'Mike Johnson',
+      duration: '6 weeks',
+      students: 850,
+      rating: 4.7,
+      isFeatured: false,
+      isNew: true,
+      imageUrl: 'https://via.placeholder.com/300x200?text=Vue+Advanced',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '4',
+      title: 'TypeScript Mastery',
+      description: 'Complete TypeScript for professional development',
+      category: 'Programming Languages',
+      difficulty: 'Intermediate',
+      instructor: 'Sarah Williams',
+      duration: '4 weeks',
+      students: 1800,
+      rating: 4.6,
+      isFeatured: true,
+      isNew: false,
+      imageUrl: 'https://via.placeholder.com/300x200?text=TypeScript+Mastery',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '5',
+      title: 'Node.js Backend',
+      description: 'Build scalable backend applications with Node.js',
+      category: 'Web Development',
+      difficulty: 'Intermediate',
+      instructor: 'Tom Brown',
+      duration: '5 weeks',
+      students: 1600,
+      rating: 4.8,
+      isFeatured: false,
+      isNew: false,
+      imageUrl: 'https://via.placeholder.com/300x200?text=NodeJS+Backend',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '6',
+      title: 'Python for Data Science',
+      description: 'Data analysis and visualization with Python',
+      category: 'Data Science',
+      difficulty: 'Intermediate',
+      instructor: 'Emily Davis',
+      duration: '6 weeks',
+      students: 2200,
+      rating: 4.9,
+      isFeatured: true,
+      isNew: true,
+      imageUrl: 'https://via.placeholder.com/300x200?text=Python+Data+Science',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '7',
+      title: 'Web Design Essentials',
+      description: 'UI/UX design principles for the web',
+      category: 'Web Development',
+      difficulty: 'Beginner',
+      instructor: 'Alex Martinez',
+      duration: '4 weeks',
+      students: 1400,
+      rating: 4.5,
+      isFeatured: false,
+      isNew: false,
+      imageUrl: 'https://via.placeholder.com/300x200?text=Web+Design',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '8',
+      title: 'Database Design',
+      description: 'SQL and NoSQL database design patterns',
+      category: 'Programming Languages',
+      difficulty: 'Advanced',
+      instructor: 'Chris Lee',
+      duration: '5 weeks',
+      students: 950,
+      rating: 4.7,
+      isFeatured: false,
+      isNew: false,
+      imageUrl: 'https://via.placeholder.com/300x200?text=Database+Design',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '9',
+      title: 'iOS Development',
+      description: 'Build native iOS apps with Swift',
+      category: 'Mobile Development',
+      difficulty: 'Intermediate',
+      instructor: 'Jessica Brown',
+      duration: '6 weeks',
+      students: 1100,
+      rating: 4.6,
+      isFeatured: true,
+      isNew: false,
+      imageUrl: 'https://via.placeholder.com/300x200?text=iOS+Development',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '10',
+      title: 'Android Development',
+      description: 'Create Android apps with Kotlin',
+      category: 'Mobile Development',
+      difficulty: 'Intermediate',
+      instructor: 'David Wilson',
+      duration: '6 weeks',
+      students: 950,
+      rating: 4.5,
+      isFeatured: false,
+      isNew: true,
+      imageUrl: 'https://via.placeholder.com/300x200?text=Android+Development',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '11',
+      title: 'Machine Learning Basics',
+      description: 'Introduction to Machine Learning algorithms',
+      category: 'Data Science',
+      difficulty: 'Intermediate',
+      instructor: 'Dr. Rachel Green',
+      duration: '8 weeks',
+      students: 1750,
+      rating: 4.8,
+      isFeatured: true,
+      isNew: true,
+      imageUrl: 'https://via.placeholder.com/300x200?text=Machine+Learning',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '12',
+      title: 'Deep Learning Advanced',
+      description: 'Neural networks and deep learning frameworks',
+      category: 'Data Science',
+      difficulty: 'Advanced',
+      instructor: 'Prof. Andrew Chen',
+      duration: '10 weeks',
+      students: 680,
+      rating: 4.9,
+      isFeatured: false,
+      isNew: true,
+      imageUrl: 'https://via.placeholder.com/300x200?text=Deep+Learning',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '13',
+      title: 'JavaScript ES6+',
+      description: 'Modern JavaScript features and best practices',
+      category: 'Programming Languages',
+      difficulty: 'Beginner',
+      instructor: 'Kevin Moore',
+      duration: '4 weeks',
+      students: 2500,
+      rating: 4.7,
+      isFeatured: false,
+      isNew: false,
+      imageUrl: 'https://via.placeholder.com/300x200?text=JavaScript+ES6',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '14',
+      title: 'CSS Grid & Flexbox',
+      description: 'Master modern CSS layout techniques',
+      category: 'Web Development',
+      difficulty: 'Beginner',
+      instructor: 'Sophie Turner',
+      duration: '3 weeks',
+      students: 1900,
+      rating: 4.8,
+      isFeatured: true,
+      isNew: false,
+      imageUrl: 'https://via.placeholder.com/300x200?text=CSS+Grid+Flexbox',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '15',
+      title: 'Docker & Kubernetes',
+      description: 'Container orchestration for production deployments',
+      category: 'Programming Languages',
+      difficulty: 'Advanced',
+      instructor: 'Marcus Johnson',
+      duration: '7 weeks',
+      students: 720,
+      rating: 4.8,
+      isFeatured: false,
+      isNew: false,
+      imageUrl: 'https://via.placeholder.com/300x200?text=Docker+Kubernetes',
+      lessons: [],
+      materials: []
+    },
+    {
+      id: '16',
+      title: 'Cloud Computing with AWS',
+      description: 'Deploy and manage applications on AWS',
+      category: 'Programming Languages',
+      difficulty: 'Intermediate',
+      instructor: 'Lisa Anderson',
+      duration: '5 weeks',
+      students: 1600,
+      rating: 4.7,
+      isFeatured: true,
+      isNew: true,
+      imageUrl: 'https://via.placeholder.com/300x200?text=AWS+Cloud',
+      lessons: [],
+      materials: []
+    }
+  ];
+
+  /**
+   * Load all courses from backend or use mock data
    */
   loadCourses(): void {
     this.getAllCourses().subscribe(
-      courses => this.coursesSubject.next(courses)
+      courses => this.coursesSubject.next(courses),
+      error => {
+        console.warn('Backend unavailable, loading mock courses');
+        this.coursesSubject.next(this.mockCourses);
+      }
     );
   }
 
@@ -31,7 +297,14 @@ export class CourseService {
   getAllCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(this.apiUrl)
       .pipe(
-        catchError(this.handleError)
+        catchError(error => {
+          // If backend is unavailable, return mock data
+          console.warn('Using mock data instead of backend API');
+          return new Observable<Course[]>(observer => {
+            observer.next(this.mockCourses);
+            observer.complete();
+          });
+        })
       );
   }
 

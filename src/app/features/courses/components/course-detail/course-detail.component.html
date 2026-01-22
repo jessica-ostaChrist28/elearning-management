@@ -12,14 +12,14 @@
         <p class="course-category">{{ course.category }} • {{ course.difficulty | titlecase }}</p>
         <div class="course-meta">
           <span class="rating">⭐ {{ course.rating }}/5</span>
-          <span class="enrolled">👥 {{ course.totalEnrolled }} students</span>
-          <span class="duration">⏱️ {{ course.duration }} hours</span>
+          <span class="enrolled">👥 {{ course.students || 0 }} students</span>
+          <span class="duration">⏱️ {{ course.duration }}</span>
         </div>
         <div class="instructor">
-          <strong>Instructor:</strong> {{ course.instructor.name }}
+          <strong>Instructor:</strong> {{ typeof course.instructor === 'string' ? course.instructor : course.instructor?.name || 'Not specified' }}
         </div>
         <div class="price">
-          <span class="amount">${{ course.price }}</span>
+          <span class="amount" *ngIf="course.price">${{ course.price }}</span>
           <button class="btn btn-primary" (click)="enrollCourse()">Enroll Now</button>
         </div>
       </div>
@@ -40,9 +40,9 @@
 
       <!-- Syllabus Tab -->
       <div class="tab-content" *ngIf="activeTab === 'syllabus'">
-        <h2>Course Lessons ({{ course.syllabus.length }})</h2>
+        <h2>Course Lessons ({{ course.syllabus?.length || 0 }})</h2>
         <div class="lesson-list">
-          <div class="lesson-item" *ngFor="let lesson of course.syllabus; let i = index">
+          <div class="lesson-item" *ngFor="let lesson of (course.syllabus || []); let i = index">
             <div class="lesson-title">{{ i + 1 }}. {{ lesson.title }}</div>
             <div class="lesson-duration">Duration: {{ lesson.duration }} minutes</div>
           </div>
@@ -54,8 +54,7 @@
         <div class="instructor-card">
           <h2>About the Instructor</h2>
           <div class="instructor-details">
-            <div class="instructor-name">{{ course.instructor.name }}</div>
-            <div class="instructor-email">{{ course.instructor.email }}</div>
+            <div class="instructor-name">Instructor: {{ typeof course.instructor === 'string' ? course.instructor : 'Instructor' }}</div>
           </div>
         </div>
       </div>

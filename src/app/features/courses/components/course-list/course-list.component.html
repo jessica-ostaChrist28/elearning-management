@@ -36,7 +36,7 @@
          [appHighlightFeatured]="course.isFeatured"
          [appHighlightNew]="course.isNew">
       <div class="card-header">
-        <div class="course-image" [style.background-image]="'url(' + (course.image || 'assets/default-course.png') + ')'"></div>
+        <div class="course-image" [style.background-image]="'url(' + (course.imageUrl || course.image || 'assets/default-course.png') + ')'"></div>
       </div>
 
       <div class="card-content">
@@ -51,7 +51,7 @@
         </div>
 
         <div class="instructor-info">
-          <strong>Instructor:</strong> {{ course.instructor.name }}
+          <strong>Instructor:</strong> {{ typeof course.instructor === 'string' ? course.instructor : course.instructor?.name || 'Instructor' }}
         </div>
 
         <div class="course-stats">
@@ -61,15 +61,15 @@
           </div>
           <div class="stat">
             <span class="label">Enrolled:</span>
-            <span class="value">{{ course.totalEnrolled }}</span>
+            <span class="value">{{ course.students || course.totalEnrolled || 0 }}</span>
           </div>
           <div class="stat">
             <span class="label">Duration:</span>
-            <span class="value">{{ course.duration }}h</span>
+            <span class="value">{{ course.duration }}</span>
           </div>
         </div>
 
-        <div class="course-price">
+        <div class="course-price" *ngIf="course.price">
           <span class="price">${{ course.price }}</span>
         </div>
       </div>

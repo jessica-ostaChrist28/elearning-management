@@ -4,19 +4,20 @@ export interface Course {
   title: string;
   description: string;
   category: string;
-  difficulty: CourseDifficulty;
-  instructor: InstructorInfo;
-  price: number;
+  difficulty: string; // 'Beginner' | 'Intermediate' | 'Advanced'
+  instructor: string | InstructorInfo; // Support both string and object
+  duration: string | number; // Support both '4 weeks' and number in hours
+  students?: number;
+  totalEnrolled?: number;
   rating: number;
-  totalEnrolled: number;
-  totalLessons: number;
-  duration: number; // in hours
-  image?: string;
   isFeatured: boolean;
   isNew: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  syllabus: Lesson[];
+  image?: string;
+  imageUrl?: string;
+  price?: number;
+  lessons?: Lesson[];
+  materials?: Material[];
+  syllabus?: Lesson[];
 }
 
 // Instructor Info (light version)
