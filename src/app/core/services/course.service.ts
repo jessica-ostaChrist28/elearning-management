@@ -32,7 +32,7 @@ export class CourseService {
       rating: 4.8,
       isFeatured: true,
       isNew: false,
-      imageUrl: 'https://via.placeholder.com/300x200?text=Angular+Fundamentals',
+      imageUrl: 'assets/courses/course1.jpg',
       lessons: [],
       materials: []
     },
@@ -48,7 +48,7 @@ export class CourseService {
       rating: 4.9,
       isFeatured: true,
       isNew: true,
-      imageUrl: 'https://via.placeholder.com/300x200?text=React+Basics',
+      imageUrl: 'assets/courses/course2.jpg',
       lessons: [],
       materials: []
     },
